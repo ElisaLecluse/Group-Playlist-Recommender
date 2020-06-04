@@ -1,0 +1,11 @@
+.scrollbox {
+  height: 35%;
+}
+.songbox {
+  animation: fadein 1.5s ease-out;
+}
+@keyframes fadein {
+  from {top: -30px;}
+  to {top: 0}
+}
+

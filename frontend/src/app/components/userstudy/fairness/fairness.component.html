@@ -1,0 +1,110 @@
+<div class="screen">
+  <div class="playlist">
+    <div class="userbox">
+      <div *ngFor="let user of getUsers()" style="padding: 0px 5px">
+        {{user.username}}:
+        <div class="col-auto float-right"
+             style="padding:3px 0px 3px 5px; display: flex; flex-direction: column; justify-content: center;">
+          <svg width="10" height="10" style="max-height: 10px;">
+            <rect width="10" height="10" [style.fill]="user.color" style="fill:#84B8FF;"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="playlistbox" id="playlistbox">
+        <div *ngFor="let topsong of topsongs">
+          <div class="songbox" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+            <div class="container">
+              <div class="row">
+                <div class="col" style="padding: 10px 0px">
+                  {{topsong.name}} - {{topsong.artists}}
+                </div>
+                <div *ngFor="let userid of topsong.userids"
+                     class="col-auto float-right"
+                     title="{{getUserName(userid)+' this song'}}"
+                     style="padding:3px; display: flex; flex-direction: column; justify-content: center;">
+                  <svg width="10" height="10" style="max-height: 10px;">
+                    <rect width="10" height="10" [style.fill]="getUserColor(userid)" style="fill:#84B8FF;"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <svg width="100%" height="3" style="height: 3px">
+          <rect width="100%" height="3" fill="rgba(0, 64, 153, 0.6)" style="fill:#84B8FF;"/>
+        </svg>
+        <div *ngFor="let lastsong of lastsongs">
+          <div class="songbox" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+            <div class="container">
+              <div class="row">
+                <div class="col" style="padding: 10px 0px" id="{{lastsong.id}}">
+                  {{lastsong.name}} - {{lastsong.artists}}
+                </div>
+                <div *ngFor="let userid of lastsong.userids"
+                     class="col-auto float-right"
+                     title="{{getUserName(userid)+' this song'}}"
+                     style="padding:3px; display: flex; flex-direction: column; justify-content: center;">
+                  <svg width="10" height="10" style="max-height: 10px;">
+                    <rect width="10" height="10" [style.fill]="getUserColor(userid)" style="fill:#84B8FF;"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div *ngIf="overflow" style="position: absolute; left: 10px; bottom: 8px; color: rgba(0, 64, 153, 0.6);">
+      Scroll down to see more songs
+    </div>
+  </div>
+  <div class="questionnaire">
+    <div style="text-align: left; padding-bottom: 15px">
+      <div class="big">
+        Congratulations, you created a group playlist!
+      </div>
+      <div style="padding-top: 8px">
+        While selecting songs for the playlist in the application, <br>
+        the songs were ranked based on the probability that group members will like them. <br>
+        In the end the group can decide how many songs they want to include in the final playlist. <br>
+      </div>
+      <div style="padding-top: 8px">
+        Let's say the <span style="font-size: 14px; font-weight: 700; color: #3590F3">final group playlist consists of the top {{this.nb}} selected songs.</span> <br>
+        The songs that made it to the playlist are shown on the left <u><b>above</b></u> the blue line. <br>
+        The songs <u><b>below</b></u> the blue line are <u><b>not</b></u> part of the final playlist <br>
+        (you might need to scroll down to see all the songs and the blue line).
+      </div>
+      <div style="padding-top: 8px">
+        With this in mind,
+        <b>please indicate the extent to which <br> you agree or disagree with the following statements.</b>
+      </div>
+    </div>
+    <div *ngFor="let q of questions">
+      <div style="padding: 15px 0 10px 0; font-weight: 700">{{q.q}}</div>
+      <div style="padding-left: 20px">
+        <mat-radio-group aria-label="Select an option" (change)="onChange($event, q.i)">
+          <mat-radio-button value="a" color="primary">Strongly agree</mat-radio-button><br>
+          <mat-radio-button value="b" color="primary">Somewhat agree</mat-radio-button><br>
+          <mat-radio-button value="c" color="primary">Neither agree nor disagree</mat-radio-button><br>
+          <mat-radio-button value="d" color="primary">Somewhat disagree</mat-radio-button><br>
+          <mat-radio-button value="e" color="primary">Strongly disagree</mat-radio-button><br>
+        </mat-radio-group>
+      </div>
+    </div>
+    <mat-form-field style="width: 100%; margin-top: 10px">
+      <mat-label style="color: black; font-weight: 700">Do you have any suggestions to make the ranking of songs in the playlist more fair?</mat-label>
+      <textarea matInput id="fairnessquestion"></textarea>
+    </mat-form-field>
+    <div *ngIf="!allAnswered()" style="text-align: right; color: #E74C3C; padding-top: 20px; font-size: 9px;">
+      You did not answer all the questions yet
+    </div>
+    <div style="text-align: right">
+      <button mat-raised-button
+              [disabled]="!allAnswered()"
+              (click)="onClickNext()"
+              style="color: #6c757d; border: 1px solid rgba(0, 64, 153, 0.5); height: 30px; width: 30%; margin-top: 5px">
+        <div style="vertical-align: center">Next</div>
+      </button>
+    </div>
+  </div>
+</div>

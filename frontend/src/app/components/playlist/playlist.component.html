@@ -1,0 +1,72 @@
+<div class="userbox">
+  <div *ngFor="let user of getUsers()" style="padding: 0px 5px">
+    {{user.username}}:
+    <div class="col-auto float-right"
+         style="padding:3px 0px 3px 5px; display: flex; flex-direction: column; justify-content: center;">
+      <svg width="10" height="10" style="max-height: 10px;">
+        <rect width="10" height="10" [style.fill]="user.color" style="fill:#84B8FF;"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div style="font-weight: 600">
+    Your group playlist:
+  </div>
+</div>
+
+<div class="scrollbox" style="height: 83%;">
+  <div *ngFor="let song of this.getSongs()">
+    <div class="songbox" [ngStyle]="getStyle(song)" id="{{song.id+'list'}}">
+      <div class="container">
+        <div class="row">
+          <audio id="{{song.id}}" src="{{song.previewUrl}}">
+          </audio>
+          <div *ngIf="isPlaying(song.id); else elseBlock">
+            <button class="astext" (click)="pauseSong(song.id)">
+              <div class="col-auto" style="padding: 8px">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getColor(song)"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+              </div>
+            </button>
+          </div>
+          <ng-template #elseBlock>
+            <button class="astext" (click)="playSong(song, song.previewUrl)">
+              <div class="col-auto" style="padding: 8px">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getPlayableColor(song)"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+              </div>
+            </button>
+          </ng-template>
+          <div class="col" style="padding: 10px 0px">
+            {{song.name}} - {{song.artists}}
+          </div>
+          <div *ngFor="let userid of song.userids"
+               class="col-auto float-right"
+               title="{{getUserNameLike(userid)+' this song'}}"
+               style="padding:3px; display: flex; flex-direction: column; justify-content: center;">
+              <svg width="10" height="10" style="max-height: 10px;">
+                <rect width="10" height="10" [style.fill]="getUserColor(userid)" style="fill:#84B8FF;"/>
+              </svg>
+          </div>
+          <div *ngIf="songAdded(song); else newSong"
+               class="col-auto float-right"
+               title="Remove your like for this song"
+               style="padding: 8px 10px; display: flex; flex-direction: column; justify-content: center;">
+            <button class="astext" (click)="removeSongFromPlaylist(song)">
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" [style.fill]="getColor(song)"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+            </button>
+          </div>
+          <ng-template #newSong>
+            <button class="astext" (click)="addSongToPlaylist(song)">
+              <div class="col-auto float-right"
+                   title="Like this song"
+                   style="padding: 8px 10px; display: flex; flex-direction: column; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" [style.fill]="getColor(song)"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+              </div>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

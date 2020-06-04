@@ -1,0 +1,68 @@
+<div class="box">
+  <img src="../../../assets/SpotifyLogo.png" class="logo">
+  <div style="font-weight: 600">Add songs to your selection:</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-auto" style="padding: 15px 0px">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </div>
+      <div class="col" style="padding: 15px 0px">
+        <input type="text" placeholder="Search song" (click)="onClickSearch()" (keyup)="onKey($event)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="scrollbox">
+  <div *ngFor="let track of tracks">
+    <div class="songbox" [ngStyle]="getStyle(track)">
+      <div class="container">
+        <div class="row">
+          <audio id="{{track.id}}" src="{{track.previewUrl}}">
+          </audio>
+          <div *ngIf="isPlaying(track.id); else elseBlock">
+            <button class="astext" (click)="pauseSong(track.id)">
+              <div class="col-auto" style="padding: 8px">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getColor(track)"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+              </div>
+            </button>
+          </div>
+          <ng-template #elseBlock>
+            <button class="astext" (click)="playSong(track, track.previewUrl)">
+              <div class="col-auto" style="padding: 8px">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getPlayableColor(track)"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+              </div>
+            </button>
+          </ng-template>
+          <div class="col" style="padding: 10px 0px">
+            {{track.name}} - {{track.artists}}
+          </div>
+          <div *ngIf="songAdded(track); else newSong">
+            <button class="astext" (click)="removeSongFromPlaylist(track)">
+              <div class="col-auto float-right" style="padding: 10px 0px 10px 10px" [style.color]="getColor(track)">
+                Remove song
+              </div>
+            </button>
+            <button class="astext" (click)="removeSongFromPlaylist(track)">
+              <div class="col-auto float-right" style="padding: 8px 10px">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18" [style.fill]="getColor(track)"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+              </div>
+            </button>
+          </div>
+          <ng-template #newSong>
+            <button class="astext" (click)="addSongToPlaylist(track)">
+              <div class="col-auto float-right" style="padding: 10px 0px 10px 10px" [style.color]="getColor(track)">
+                Add song
+              </div>
+            </button>
+            <button class="astext" (click)="addSongToPlaylist(track)">
+              <div class="col-auto float-right" style="padding: 8px 10px">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" [style.fill]="getColor(track)"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+              </div>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

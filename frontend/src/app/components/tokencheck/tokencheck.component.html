@@ -1,0 +1,21 @@
+<div *ngIf="!tokenfail">Loading...</div>
+
+<div *ngIf="tokenfail">
+  <div class="background">
+    <div class="tokenbox">
+      <div class="center">
+        <div class="big">
+          Oops, something went wrong!
+        </div>
+        <div class="small">
+          Please try to log in again.
+        </div>
+        <button mat-raised-button
+                (click)="onClick()"
+                style="border: 1px solid rgba(0, 64, 153, 0.5); height: 30px; width: auto; margin: 25px 0 10px 0">
+          <div style="vertical-align: center">Ok</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

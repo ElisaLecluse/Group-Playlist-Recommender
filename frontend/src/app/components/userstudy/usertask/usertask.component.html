@@ -1,0 +1,53 @@
+<div class="background">
+  <div class="taskbox">
+    <div class="center" *ngIf="dinner; else roadtrip">
+      <div class="big" *ngIf="flag; else elseblock">
+        Task 2
+      </div>
+      <ng-template #elseblock>
+        <div class="big">
+          Task 1
+        </div>
+      </ng-template>
+      <div class="small">
+        Imagine you organize a dinner with the other two participants. Together you decide to create a playlist.
+      </div>
+      <div class="small">
+        Every participant should at least select/like 5 songs and, in total, at least 15 songs should be selected.
+        If you're finished, click on the button you'll see in the lower right corner. <br>
+        <b>Remember</b>: try to add/like songs that you would like to play during this <b>dinner</b> and enjoy sharing music with each other.
+      </div>
+      <button mat-raised-button
+              (click)="onClick()"
+              style="border: 1px solid rgba(0, 64, 153, 0.5); height: 30px; width: auto; margin: 25px 0 10px 0">
+        <div style="vertical-align: center">Understood, I'll do my best!</div>
+      </button>
+    </div>
+    <ng-template #roadtrip>
+      <div class="center">
+        <div class="big" *ngIf="flag; else elseblock">
+          Task 2
+        </div>
+        <ng-template #elseblock>
+          <div class="big">
+            Task 1
+          </div>
+        </ng-template>
+        <div class="small">
+          Imagine you are going on a road trip with the other two participants. Together you decide to create a playlist.
+        </div>
+        <div class="small">
+          Every participant should at least select/like 5 songs and, <br> in total, at least 15 songs should be selected
+          (yes, it will rather be a short road trip &nbsp;<span style="font-size: 14px">😁</span>).
+          If you're finished, click on the button you'll see in the lower right corner. <br>
+          <b>Remember</b>: try to add/like songs that you would like to play during this <b>road trip</b> and enjoy sharing music with each other.
+        </div>
+        <button mat-raised-button
+                (click)="onClick()"
+                style="border: 1px solid rgba(0, 64, 153, 0.5); height: 30px; width: auto; margin: 25px 0 10px 0">
+          <div style="vertical-align: center">Understood, I'll do my best!</div>
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

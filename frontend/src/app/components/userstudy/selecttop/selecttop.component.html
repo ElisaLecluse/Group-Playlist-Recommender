@@ -1,0 +1,99 @@
+<div class="background">
+  <div class="topbox">
+    <div class="big">
+      How many songs would you include in the final playlist?
+    </div>
+    <input matInput type="number" min="0" [max]="max" required placeholder="0"
+           [ngModel]="value" (ngModelChange)="sliceSongs($event)"
+           style="width: 50px; padding: 5px; font-size: 16px; text-align: center; margin-top: 15px; border: 1px solid rgba(0, 64, 153, 0.4); border-radius: 3px">
+    <div class="small">
+      Please enter a number in the input field above. <br>
+      All songs above the blue line will be in the final playlist.
+      The ones below the blue line are ranked too low and will therefore not make it to the final playlist.
+    </div>
+<!--    <div class="scrollbox">-->
+      <div *ngFor="let song of topsongs">
+        <div class="songbox" style="padding-right: 10px; border-bottom: none; text-align: left">
+          <div class="container">
+            <div class="row">
+              <audio id="{{'top' + song.id}}" src="{{song.previewUrl}}">
+              </audio>
+              <div *ngIf="isPlaying('top', song.id); else elseBlock">
+                <button class="astext" (click)="pauseSong('top', song.id)">
+                  <div class="col-auto" style="padding: 8px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                  </div>
+                </button>
+              </div>
+              <ng-template #elseBlock>
+                <button class="astext" (click)="playSong('top', song.id, song.previewUrl)">
+                  <div class="col-auto" style="padding: 8px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getPlayableColor(song)"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                  </div>
+                </button>
+              </ng-template>
+              <div class="col" style="padding: 10px 0px">
+                {{song.name}} - {{song.artists}}
+              </div>
+              <div *ngFor="let userid of song.userids"
+                   class="col-auto float-right"
+                   title="{{getUserNameLike(userid)+' this song'}}"
+                   style="padding:3px; display: flex; flex-direction: column; justify-content: center;">
+                <svg width="10" height="10" style="max-height: 10px;">
+                  <rect width="10" height="10" [style.fill]="getUserColor(userid)" style="fill:#84B8FF;"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <svg width="100%" height="3" style="height: 3px">
+        <rect width="100%" height="3" fill="rgba(0, 64, 153, 0.6)" style="fill:#84B8FF;"/>
+      </svg>
+      <div *ngFor="let song of lastsongs">
+        <div class="songbox" style="padding-right: 10px; border-top: none; text-align: left">
+          <div class="container">
+            <div class="row">
+              <audio id="{{'last'+ song.id}}" src="{{song.previewUrl}}">
+              </audio>
+              <div *ngIf="isPlaying('last', song.id); else elseBlock">
+                <button class="astext" (click)="pauseSong('last', song.id)">
+                  <div class="col-auto" style="padding: 8px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                  </div>
+                </button>
+              </div>
+              <ng-template #elseBlock>
+                <button class="astext" (click)="playSong('last', song.id, song.previewUrl)">
+                  <div class="col-auto" style="padding: 8px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getPlayableColor(song)"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                  </div>
+                </button>
+              </ng-template>
+              <div class="col" style="padding: 10px 0px">
+                {{song.name}} - {{song.artists}}
+              </div>
+              <div *ngFor="let userid of song.userids"
+                   class="col-auto float-right"
+                   title="{{getUserNameLike(userid)+' this song'}}"
+                   style="padding:3px; display: flex; flex-direction: column; justify-content: center;">
+                <svg width="10" height="10" style="max-height: 10px;">
+                  <rect width="10" height="10" [style.fill]="getUserColor(userid)" style="fill:#84B8FF;"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--    </div>-->
+
+    <div style="text-align: center">
+      <button mat-raised-button
+              [disabled]="!value"
+              (click)="onClickNext()"
+              style="color: #6c757d; border: 1px solid rgba(0, 64, 153, 0.5); height: 30px; width: 30%; margin-top: 20px">
+        <div style="vertical-align: center">Next</div>
+      </button>
+    </div>
+  </div>
+</div>

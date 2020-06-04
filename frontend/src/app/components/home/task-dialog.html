@@ -1,0 +1,47 @@
+<div *ngIf="(!data.slc || !data.playlist) && !data.trigger" style="text-align: center">
+  <div style="font-weight: 700; font-size: 18px" mat-dialog-title>You are not finished yet</div>
+  <div mat-dialog-content>
+    <div *ngIf="!data.slc">
+      Each group member should like at least 5 songs, please like yours.
+    </div>
+    <div *ngIf="!data.playlist">
+      In total, the group playlist should contain at least 15 songs.
+    </div>
+  </div>
+  <button mat-button mat-dialog-close style="height: 30px; margin-top: 20px; border: 1px solid rgba(0, 64, 153, 0.5)">
+      <div style="vertical-align: center">
+        Ok
+      </div>
+  </button>
+</div>
+
+<div *ngIf="data.slc && data.playlist && data.members.length && !data.trigger" style="text-align: center">
+  <div style="font-weight: 700; font-size: 18px" mat-dialog-title>Not all members selected 5 songs yet</div>
+  <div mat-dialog-content>
+    <div *ngIf="data.members.length > 1; else elseBlock">
+      Please wait for {{data.members[0]}} and {{data.members[1]}} to select their songs. <br>
+    </div>
+    <ng-template #elseBlock>
+      Please wait for {{data.members[0]}} to select his/her songs. <br>
+    </ng-template>
+    Feel free to add more songs to the playlist while waiting.
+  </div>
+  <button mat-button mat-dialog-close style="height: 30px; margin-top: 20px; border: 1px solid rgba(0, 64, 153, 0.5)">
+    <div style="vertical-align: center">
+      Ok
+    </div>
+  </button>
+</div>
+
+<div *ngIf="data.trigger" style="text-align: center">
+  <div style="font-weight: 700; font-size: 18px" mat-dialog-title>Thanks for completing the task!</div>
+  <div mat-dialog-content>
+    Now that all users selected at least 5 songs and the group playlist <br>
+    has at least 15 songs in it, you can proceed to the next step.
+  </div>
+  <button mat-button mat-dialog-close (click)="onClickLeave()" style="height: 30px; margin-top: 20px; border: 1px solid rgba(0, 64, 153, 0.5)">
+    <div style="vertical-align: center">
+      Ok
+    </div>
+  </button>
+</div>

@@ -1,0 +1,67 @@
+<div class="background">
+  <div class="loginbox">
+    <div class="big">
+      Please tell us how much you like the songs
+    </div>
+      <div class="small">
+        While selecting songs for the playlist in the application, <br>
+        the songs were ranked based on the probability that group members will like them. <br>
+        In order for us to know how effective the ranking algorithm did his job, <br>
+        <b>please rate the following shuffled songs</b> as part of your
+        <div *ngIf="!dinner" style="display: inline"><b>roadtrip</b></div>
+        <div *ngIf="dinner" style="display: inline"><b>dinner</b></div> playlist:
+      </div>
+      <div *ngFor="let track of tracks">
+        <div class="songbox" style="border: 1px solid transparent; color: rgba(0, 0, 0, 0.6)">
+          <div class="container">
+            <div class="row">
+              <audio id="{{track.id}}" src="{{track.previewUrl}}">
+              </audio>
+              <div *ngIf="isPlaying(track.id); else elseBlock">
+                <button class="astext" (click)="pauseSong(track.id)">
+                  <div class="col-auto" style="padding: 8px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" style="fill: rgba(0, 0, 0, 0.4)"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                  </div>
+                </button>
+              </div>
+              <ng-template #elseBlock>
+                <button class="astext" (click)="playSong(track, track.previewUrl)">
+                  <div class="col-auto" style="padding: 8px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getPlayableColor(track)"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                  </div>
+                </button>
+              </ng-template>
+              <div class="col" style="padding: 10px 0px">
+                {{track.name}} - {{track.artists}}
+              </div>
+              <div class="col-auto float-right" style="padding: 8px 5px 0 8px; display: flex; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"
+                     (click)="onStarClick(track.id, 1)" [style.fill]="getStarColor(track.id, 1)"
+                     (mouseenter)="mouseEnter(track.id, 1)" (mouseleave)="mouseLeave(track.id)" ><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"
+                     (click)="onStarClick(track.id, 2)" [style.fill]="getStarColor(track.id, 2)"
+                     (mouseenter)="mouseEnter(track.id, 2)" (mouseleave)="mouseLeave(track.id)" ><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"
+                     (click)="onStarClick(track.id, 3)" [style.fill]="getStarColor(track.id, 3)"
+                     (mouseenter)="mouseEnter(track.id, 3)" (mouseleave)="mouseLeave(track.id)" ><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"
+                     (click)="onStarClick(track.id, 4)" [style.fill]="getStarColor(track.id, 4)"
+                     (mouseenter)="mouseEnter(track.id, 4)" (mouseleave)="mouseLeave(track.id)" ><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"
+                     (click)="onStarClick(track.id, 5)" [style.fill]="getStarColor(track.id, 5)"
+                     (mouseenter)="mouseEnter(track.id, 5)" (mouseleave)="mouseLeave(track.id)" ><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div style="text-align: center">
+      <button mat-raised-button
+              [disabled]="!ratingCompleted"
+              (click)="onClickNext()"
+              style="color: #6c757d; border: 1px solid rgba(0, 64, 153, 0.5); height: 30px; width: 30%; margin-top: 20px">
+        <div style="vertical-align: center">Next</div>
+      </button>
+    </div>
+    </div>
+</div>

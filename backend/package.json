@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend Group Playlist Recommender",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "socket.io": "^2.3.0"
+  },
+  "author": "Elisa Lecluse",
+  "license": "ISC",
+  "devDependencies": {
+    "cookie-parser": "^1.4.4",
+    "request": "^2.88.2"
+  }
+}

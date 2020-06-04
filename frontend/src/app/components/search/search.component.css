@@ -1,0 +1,20 @@
+.box {
+  padding: 0px 20px;
+}
+.logo {
+  width: 100px;
+  padding-bottom: 20px;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 2px;
+  display: inline-block;
+  box-sizing: border-box;
+  background: transparent;
+  border: transparent;
+  font-weight: 300;
+}
+*:focus {
+  outline: none;
+}

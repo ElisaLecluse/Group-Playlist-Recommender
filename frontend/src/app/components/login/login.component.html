@@ -1,0 +1,40 @@
+<div class="background">
+  <div class="loginbox">
+    <img src="../assets/SpotifyLogo.png" class="logo">
+    <div class="center">
+      <div class="big">
+        Hi there!
+      </div>
+      <div class="small">
+        Please provide a display name and the name of your group to use the
+        Group Playlist Recommender
+      </div>
+      <form class="example-form" #myForm ="ngForm">
+        <mat-form-field class="example-full-width">
+          <mat-label>Display name</mat-label>
+          <input matInput name="username" [(ngModel)]="loginModel.username" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Group name</mat-label>
+          <input matInput name="groupname" [(ngModel)]="loginModel.groupname" required>
+        </mat-form-field>
+        <div class="small" style="padding: 0; color: #E74C3C">
+          {{this.errMessage}}
+        </div>
+        <div *ngIf="myForm.form.valid">
+          <button mat-raised-button
+                  [disabled]="!myForm.form.valid"
+                  (click)="onClickRegister()"
+                  style="color: #6c757d; border: 1px solid rgba(0, 64, 153, 0.5); margin: 20px; width: 50%;">
+            Next
+          </button>
+        </div>
+      </form>
+      <div class="ssmall">
+        Your display name will be stored as a random identifier, <br/> thereby anonymising your logged interactions.
+      </div>
+    </div>
+  </div>
+</div>
+
+

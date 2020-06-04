@@ -1,0 +1,110 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&display=swap');
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.box {
+  padding: 45px 20px 20px 20px;
+}
+.scrollbox {
+  height: 75%;
+  /*border-bottom: 1px solid rgba(132, 184, 255, 0.5);*/
+  overflow: scroll;
+}
+.songbox {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin: 0px;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 300;
+}
+
+.astext {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  cursor: pointer;
+}
+
+.circle {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-top: 1px;
+  transform: translateY(-55%);
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+  background: #84B8FF;
+}
+
+svg {
+  fill: rgba(0, 0, 0, 0.4);
+  height: 20px;
+}
+
+@keyframes colorchange {
+  from {border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: inset 0px 0px 15px rgba(0, 64, 153, 0.3);
+  }
+  to {border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+@keyframes colorinit {
+  from {border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
+    box-shadow: none;
+  }
+  to {border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: inset 0px 0px 15px rgba(0, 64, 153, 0.3);
+  }
+}
+
+@keyframes addchange {
+  from {border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    box-shadow: inset 0px 0px 15px rgba(0, 64, 153, 0.5);
+  }
+  to {border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+  }
+}
+
+@keyframes addinit {
+  from {border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+  }
+  to {border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    box-shadow: inset 0px 0px 15px rgba(0, 64, 153, 0.5);
+  }
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="search">
+    <app-search></app-search>
+  </div>
+  <div class="rec" style="font-weight: 700">
+    <app-your-recommendations></app-your-recommendations>
+    <app-group-recommendations></app-group-recommendations>
+  </div>
+  <div class="playlist" style="font-weight: 700">
+    <app-playlist></app-playlist>
+  </div>
+</div>
+<div class="footer">
+  <div class="container" style="padding: 0; margin: 0">
+    <div class="row">
+      <div class="col-auto float-left" style="text-align: right; max-width: 30%; padding: 0 10px 0 0">
+        <div *ngIf="isSelected()" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+          <div *ngIf="isPlaying(); else elseBlock" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;;">
+            <button class="astext" (click)="pauseSong()" style="padding: 10px 0">
+              <div class="col-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" style="fill: white"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+              </div>
+            </button>
+              {{getTrackTitle()}}
+          </div>
+          <ng-template #elseBlock>
+            <button class="astext" (click)="playSong()" style="padding: 10px 0">
+              <div class="col-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" [style.fill]="getPlayableColor()"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+              </div>
+            </button>
+            {{getTrackTitle()}}
+          </ng-template>
+        </div>
+      </div>
+      <div class="col">
+        <div *ngIf="isPlaying()" class="bar">
+          <div class="progress" [ngStyle]="getAnimation()">
+          </div>
+        </div>
+      </div>
+      <div class="col-auto float-right">
+        <button mat-raised-button
+                style=" height: 30px; background: #004099; color: white; border: 1px solid white; margin: 5px"
+                (click)="onClickFinish()">
+          <div style="vertical-align: center">Finished</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

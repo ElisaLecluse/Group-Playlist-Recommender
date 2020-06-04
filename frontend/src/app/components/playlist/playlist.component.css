@@ -1,0 +1,9 @@
+.userbox {
+  padding: 6px;
+  display: flex;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 1px solid #84B8FF;
+  box-sizing: border-box;
+}
